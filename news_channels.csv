@@ -1,0 +1,44 @@
+outlet,outlet_id,account,category,importance,country
+Het Laatste Nieuws,1,HLN_BE,newspaper,national,belgium
+Het Nieuwsblad,2,Nieuwsblad_be,newspaper,national,belgium
+De Morgen,3,demorgen,newspaper,national,belgium
+De Standaard,4,destandaard,newspaper,national,belgium
+De Tijd,5,tijd,newspaper,national,belgium
+Gazet van Antwerpen,6,gva,newspaper,regional,belgium
+VRT nieuws,7,vrtnws,public broadcast,national,belgium
+Metro,8,metrobelgie,newspaper,free paper,belgium
+het Belang van Limburg,9,hbvl,newspaper,regional,belgium
+VTM nieuws,10,VTMNIEUWS,tv,national,belgium
+Knack,11,Knack,commentary,national,belgium
+De Telegraaf,12,telegraaf,newspaper,national,netherlands
+Algemeen Dagblad,13,adnl,newspaper,national,netherlands
+NOS,14,NOS,public broadcast,national,netherlands
+Volkskrant,15,volkskrant,newspaper,national,netherlands
+NRC Handelsblad,16,nrc,newspaper,national,netherlands
+Trouw,17,trouw,newspaper,national,netherlands
+Het Financieele Dagblad,18,FD_Nieuws,newspaper,national,netherlands
+Reformatorisch Dagblad,19,refdag,newspaper,national,netherlands
+Nederlands Dagblad,20,ndnl,newspaper,national,netherlands
+De Kanttekening,21,deKanttekening,newspaper,national,netherlands
+De Limburger,22,delimburger,newspaper,regional,netherlands
+Noordhollands Dagblad,23,nhdagblad,newspaper,regional,netherlands
+De Stentor,24,De_Stentor,newspaper,regional,netherlands
+Dagblad van het Noorden,25,dvhn_nl,newspaper,regional,netherlands
+Brabants Dagblad,26,brabantsdagblad,newspaper,regional,netherlands
+Het Parool,27,parool,newspaper,regional,netherlands
+RTL Nieuws,28,RTLnieuws,tv,national,netherlands
+BNR,29,BNR,radio,national,netherlands
+Jinek,30,Jinek_RTL,tv,national,netherlands
+Op1,31,op1npo,tv,national,netherlands
+Nieuwsuur,32,Nieuwsuur,tv,national,netherlands
+AT5,33,AT5,tv,national,netherlands
+EenVandaag,34,EenVandaag,tv,national,netherlands
+De Groene Amsterdammer,35,DeGroene,commentary,regional,netherlands
+Terzake,36,terzaketv,tv,national,netherlands
+De Afspraak,37,deafspraaktv,tv,national,netherlands
+De Zevende Dag,38,De7deDag,tv,national,netherlands
+New York Times,39,nytimes,newspaper,international,united states
+Washington Post,40,washingtonpost,newspaper,international,united states
+CNN,41,CNN,tv,international,united states
+Reuters,42,Reuters,organisation,international,international
+BBC,43,BBCBreaking,public broadcast,international,international
