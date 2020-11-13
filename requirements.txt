@@ -1,4 +1,5 @@
 #on linux: must install git (https://git-scm.com/download/linux) and devtools for postgres (sudo apt-get install libpq-dev in terminal)
+
 #then run in terminal:
 pip install pandas==1.1.3
 pip install nordvpn_switcher==0.1.7
@@ -8,3 +9,8 @@ pip install psycopg2==2.8.6
 pip install tabulate
 pip install git+https://github.com/JustAnotherArchivist/snscrape.git
 python -m spacy download nl_core_news_sm
+
+#to make vpn switching possible, first install nordvpn and provide your credentials
+#to avoid unavailability of the server on your local network, do this:
+#1. check ip and port by running "ip a" in terminal (e.g. 192.168.2.66/24)
+#2. run "nordvpn whitelist add subnet 192.168.2.66/24" in terminal
