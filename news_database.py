@@ -221,7 +221,7 @@ def request_newvpn():
 #######
 welcome_message()
 #connect to server#
-con = connect_todb()
+con = connect_todb("connection_db.csv")
 #create tables
 #1: headlines table
 #create_table_headlines(con) #remove hashtag if you're setting up a new database and need to create a new table
