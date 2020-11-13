@@ -1,5 +1,7 @@
 #import required packages#
 from time import time,sleep
+from datetime import datetime
+from tabulate import tabulate
 import sys
 import os
 import re
@@ -28,10 +30,13 @@ def get_filenames(folders):
                     files.append(os.path.join(r, file))
     return files
 #1.connect to database
-def connect_todb():
+def connect_todb(info):
+    #this function expects a csv file with 5 columns (database,user,password,host,port)...
+    #...with a single row (besides the header) containing the login info
+    info = pd.read_csv(info, sep=",", encoding="utf-8")
     print("\nConnecting to database...\n"
           "========================\n")
-    con = psycopg2.connect(database="newsheadlines_db", user="news_db_manager", password="natesilver538", host="192.168.2.66", port="5432")
+    con = psycopg2.connect(database=info.database[0], user=info.user[0], password=info.password[0], host=info.host[0], port=info.port[0])
     print("Done!\n")
     return con
 #1.1. create table
@@ -57,7 +62,18 @@ def create_table_headlines(con):
           places TEXT,
           objects TEXT);''')
     con.commit()
-    print("\nTable created successfully")
+    print("\nHeadlines table created successfully")
+def create_table_outlets(con):
+    cur = con.cursor()
+    cur.execute('''CREATE TABLE outlets
+    (outlet VARCHAR NOT NULL,
+    outlet_id INT,
+    account VARCHAR PRIMARY KEY,
+    category TEXT NOT NULL,
+    importance VARCHAR NOT NULL,
+    country VARCHAR NOT NULL);''')
+    con.commit()
+    print("\nOutlets table created successfully")
 #2.retrieve latest headlines from database
 def db_latestnews(connection):
     print("\nRetrieving most recent headlines in database...\n"
@@ -160,9 +176,29 @@ def welcome_message():
 | __ || _|  / _ \ | |) || |__  | | | .` || _| \__ \      \__ \| (__ |   / / _ \ |  _/| _| |   /
 |_||_||___|/_/ \_\|___/ |____||___||_|\_||___||___/      |___/ \___||_|_\/_/ \_\|_|  |___||_|_\ 
 #################################################################################################\n\n""" + color.END)
-def update_message(df):
+def update_message(df,connection):
     print(color.BOLD + color.GREEN + "Update completed!\n"
           "Added " + str(len(df)) + " headlines to the database.\n"+ color.END)
+    cur = connection.cursor()
+    print("\nNumber of articles scraped today by country:\n")
+    cur.execute('''
+    SELECT
+    country, COUNT(headline)
+    FROM(SELECT
+    account, headline
+    FROM
+    headlines
+    WHERE
+    date(date) = '{0}') as headlines_today
+    INNER
+    JOIN
+    outlets
+    ON(headlines_today.account = outlets.account) GROUP
+    BY
+    outlets.country;;'''.format(str(datetime.today().strftime('%Y-%m-%d'))))
+    table_current = tabulate(cur.fetchall(),tablefmt="grid")
+    con.commit()
+    print(table_current+"\n\n")
 def countdown(t):
     print("\nUpdating headlines again in:\n"
           "################################")
@@ -179,6 +215,7 @@ def request_newvpn():
           "==============================================\n")
     rotate_VPN()
 
+
 #######
 #SETUP#
 #######
@@ -189,7 +226,9 @@ con = connect_todb()
 #1: headlines table
 #create_table_headlines(con) #remove hashtag if you're setting up a new database and need to create a new table
 #2: outlets table
-
+#create_table_outlets(con)
+#outlets = pd.read_csv('news_channels.csv',sep=",",encoding="utf-8",quotechar="'")
+#upload_db_latestnews(con,outlets,'outlets')
 #check vpn settings (remove 'stored settings' and set 'save = 1' for initializing new settings)
 #initialize_VPN(save=1)
 
@@ -219,4 +258,4 @@ while True:
             raise Exception("\nSCRAPER IS BROKEN\n")
 
     upload_db_latestnews(con,updated_headlines_total,"headlines")
-    update_message(updated_headlines_total)
+    update_message(updated_headlines_total,con)
