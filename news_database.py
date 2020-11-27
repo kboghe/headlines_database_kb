@@ -215,7 +215,6 @@ def request_newvpn():
           "==============================================\n")
     rotate_VPN()
 
-
 #######
 #SETUP#
 #######
@@ -239,6 +238,11 @@ while True:
     countdown(1800)
     request_newvpn()
     latest = pd.DataFrame(db_latestnews(con))
+    if len(latest) == 0:
+        accounts = pd.read_csv('news_channels.csv',sep=',',quotechar='"',usecols=["account","importance"])
+        accounts = accounts[accounts.importance != 'international']['account']
+        dates = [pd.to_datetime('1900-01-01')] * len(accounts)
+        latest = pd.DataFrame(list(accounts),list(dates)).reset_index()
     latest.columns = ['date','account']
     updated_headlines_total = pd.DataFrame()
     for index,row in latest.iterrows():
