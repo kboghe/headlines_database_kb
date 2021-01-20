@@ -1,1 +1,1 @@
-{"opsys": "Linux", "command": ["nordvpn", "c"], "settings": ["Germany", "Luxembourg", "Belgium", "Croatia", "Hungary", "Netherlands", "North_Macedonia", "Switzerland", "Slovenia", "United_Kingdom"], "additional_settings": []}
+{"opsys": "Linux", "command": ["nordvpn", "c"], "settings": ["Albania", "Croatia", "Netherlands", "Sweden", "Finland", "Ireland", "France", "Switzerland", "Slovakia", "Austria"], "additional_settings": [["nordvpn", "whitelist", "add", "subnet", "192.168.2.66/24"]]}

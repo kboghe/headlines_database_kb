@@ -215,27 +215,35 @@ def request_newvpn():
           "==============================================\n")
     rotate_VPN()
 
+###############
+#FIRST TIMER?##
+###############
+firsttimer = input('Is your database currently empty and do you want me to create all the necessary tables for you? (y/n)')
+
 #######
 #SETUP#
 #######
 welcome_message()
 #connect to server#
 con = connect_todb("connection_db.csv")
-#create tables
-#1: headlines table
-#create_table_headlines(con) #remove hashtag if you're setting up a new database and need to create a new table
-#2: outlets table
-#create_table_outlets(con)
-#outlets = pd.read_csv('news_channels.csv',sep=",",encoding="utf-8",quotechar="'")
-#upload_db_latestnews(con,outlets,'outlets')
-#check vpn settings (remove 'stored settings' and set 'save = 1' for initializing new settings)
-#initialize_VPN(save=1)
+
+if 'y' in firsttimer:
+    #create tables
+    #1: headlines table
+    create_table_headlines(con) #remove hashtag if you're setting up a new database and need to create a new table
+    #2: outlets table
+    create_table_outlets(con)
+    outlets = pd.read_csv('news_channels.csv',sep=",",encoding="utf-8",quotechar="'")
+    upload_db_latestnews(con,outlets,'outlets')
+    #check vpn settings (remove 'stored settings' and set 'save = 1' for initializing new settings)
+    initialize_VPN(save=1)
+
 
 ####################################
 #launch periodic update of database#
 ####################################
 while True:
-    countdown(1800)
+    countdown(10)
     request_newvpn()
     latest = pd.DataFrame(db_latestnews(con))
     if len(latest) == 0:
@@ -260,6 +268,7 @@ while True:
                 break
         else:
             raise Exception("\nSCRAPER IS BROKEN\n")
+        request_newvpn()
 
     upload_db_latestnews(con,updated_headlines_total,"headlines")
     update_message(updated_headlines_total,con)
